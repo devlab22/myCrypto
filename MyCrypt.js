@@ -25,10 +25,14 @@ class MyCrypt {
             }
         });
 
+        cipher.on('error', () => {
+            throw new Error('error')
+        })
+
         // Writing data
         cipher.write(message);
         cipher.end();
-        return encrypted
+        return encrypted;
     }
 
     decrypt(data) {
@@ -42,6 +46,10 @@ class MyCrypt {
             while (null !== (chunk = decipher.read())) {
                 decrypted += chunk.toString('utf8');
             }
+        })
+
+        decipher.on('error', () => {
+            throw new Error('wrong password')
         })
 
         decipher.write(data, 'base64');
@@ -68,7 +76,7 @@ class MyCrypt {
             const decrypted = this.decrypt(data);
             return decrypted;
         } catch (err) {
-            throw new Error(err)
+            throw new Error(err.message)
         }
     }
 }
