@@ -35,7 +35,7 @@ class MyCrypt {
         return encrypted;
     }
 
-    decrypt(data) {
+    decrypt(data, toJson=false) {
 
         const decipher = crypto.createDecipheriv(this.algorithm, this.key, this.iv);
 
@@ -54,7 +54,15 @@ class MyCrypt {
 
         decipher.write(data, 'base64');
         decipher.end();
-        return decrypted;
+
+        if(toJson){
+            const decryptedJson = JSON.parse(decrypted);
+            return decryptedJson;
+        }
+        else{
+            return decrypted;
+        }
+        
     }
 
     encryptToFile(filename, message) {
