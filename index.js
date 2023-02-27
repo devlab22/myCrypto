@@ -8,21 +8,14 @@ function decrypt(fname, password = '', salt = '', toJson = false) {
 
     try {
 
-        const crypter = new MyCrypt(password, salt)
-        const decryptedText = crypter.decryptFromFile(filename);
-
-        if (toJson) {
-            const decryptedJson = JSON.parse(decryptedText);
-            console.log(decryptedJson);
-        }
-        else {
-            console.log(decryptedText);
-        }
+        const crypter = new MyCrypt(password, salt);
+        const decryptedText = crypter.decryptFromFile(filename, toJson);
+        console.log(decryptedText);
 
     }
     catch (err) {
         console.log('Error by decrypt')
-       // console.log(err.message)
+        // console.log(err.message)
     }
 }
 

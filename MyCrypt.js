@@ -69,12 +69,19 @@ class MyCrypt {
 
     }
 
-    decryptFromFile(filename) {
+    decryptFromFile(filename, toJson = false) {
 
         try {
             const data = fs.readFileSync(filename, 'utf8');
             const decrypted = this.decrypt(data);
-            return decrypted;
+            if (toJson) {
+                const decryptedJson = JSON.parse(decrypted);
+                return decryptedJson;
+            }
+            else {
+                return decrypted;
+            }
+
         } catch (err) {
             throw new Error(err.message)
         }
