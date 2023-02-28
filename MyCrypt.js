@@ -70,6 +70,7 @@ class MyCrypt {
         try {
             const encrypted = this.encrypt(message);
             fs.writeFileSync(filename, encrypted);
+            return encrypted;
         }
         catch (err) {
             throw new Error(err.message)
@@ -122,7 +123,8 @@ class MyCrypt {
     
         try {
             const crypter = new MyCrypt(password, salt);
-            crypter.encryptToFile(fname, content);
+            const encrypted = crypter.encryptToFile(fname, content);
+            return encrypted;
         }
         catch (err) {
             throw new Error('Error by encrypt');
@@ -134,7 +136,8 @@ class MyCrypt {
 
         try {
             const crypter = new MyCrypt(password, salt);
-            crypter.encrypt(content);
+            const encrypted = crypter.encrypt(content);
+            return encrypted;
         }
         catch (err) {
             throw new Error('Error by encrypt');
