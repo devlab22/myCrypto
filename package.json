@@ -1,16 +1,22 @@
 {
   "name": "mycrypto",
   "version": "1.0.0",
-  "description": "",
+  "description": "MyCrypt App",
+  "bin": "index.js",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "build": "pkg ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "pkg": "^5.8.0",
     "readline-sync": "^1.4.10"
+  },
+  "pkg":{
+    "scripts": "MyCrypt.js"
   }
 }

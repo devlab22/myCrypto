@@ -81,18 +81,65 @@ class MyCrypt {
 
         try {
             const data = fs.readFileSync(filename, 'utf8');
-            const decrypted = this.decrypt(data);
-            if (toJson) {
-                const decryptedJson = JSON.parse(decrypted);
-                return decryptedJson;
-            }
-            else {
-                return decrypted;
-            }
+            const decrypted = this.decrypt(data, toJson);
+            return decrypted; 
 
         } catch (err) {
             throw new Error(err.message)
         }
+    }
+
+    // ======= static =========
+    static decryptFromFile(fname, password = '', salt = '', toJson = false) {
+    
+        try {
+    
+            const crypter = new MyCrypt(password, salt);
+            const decryptedText = crypter.decryptFromFile(fname, toJson);
+            return decryptedText;
+        }
+        catch (err) {
+            throw new Error('Error by decrypt');
+        }
+    }
+
+    static decrypt(content, password = '', salt = '', toJson = false) {
+
+        try {
+    
+            const crypter = new MyCrypt(password, salt);
+            const decrypted = crypter.decrypt(content, toJson);
+            return decrypted;
+    
+        }
+        catch (err) {
+            throw new Error('Error by decrypt');
+        }
+    
+    }
+
+    static encryptToFile(fname, content = '', password = '', salt = '') {
+    
+        try {
+            const crypter = new MyCrypt(password, salt);
+            crypter.encryptToFile(fname, content);
+        }
+        catch (err) {
+            throw new Error('Error by encrypt');
+        }
+       
+    }
+
+    static encrypt(content = '', password = '', salt = '') {
+
+        try {
+            const crypter = new MyCrypt(password, salt);
+            crypter.encrypt(content);
+        }
+        catch (err) {
+            throw new Error('Error by encrypt');
+        }
+    
     }
 }
 
