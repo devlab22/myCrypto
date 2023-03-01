@@ -73,7 +73,7 @@ class MyCrypt {
             return encrypted;
         }
         catch (err) {
-            throw new Error(err.message)
+            throw new Error(err.message);
         }
 
     }
@@ -86,7 +86,7 @@ class MyCrypt {
             return decrypted; 
 
         } catch (err) {
-            throw new Error(err.message)
+            throw new Error(err.message);
         }
     }
 
