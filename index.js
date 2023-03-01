@@ -9,14 +9,13 @@ const path = require('path');
 
 const parser = new ArgumentParser({ description: 'Argparse crypto' });
 
-
 parser.add_argument('-password', '--password', { help: 'password', required: false });
 parser.add_argument('-salt', '--salt', { help: 'salt', required: false });
 parser.add_argument('-action', '--action', { help: 'e -> encrypt/ d -> decript', required: false });
 parser.add_argument('-toJson', '--toJson', { help: 'convert output to JSON', action: 'store_true' });
 parser.add_argument('-show', '--show', { help: 'show encrypted', action: 'store_true' });
-parser.add_argument('-filename', '--filename', { help: 'filename' });
 parser.add_argument('-src', '--src', { help: 'source filename' });
+parser.add_argument('-target', '--target', { help: 'target filename' });
 parser.add_argument('-content', '--content', { help: 'content' });
 
 const args = parser.parse_args();
@@ -152,16 +151,20 @@ function processParse() {
     var salt = '';
     var action = '';
     var toJson = false;
-    var filename = null;
     var content = '';
     var show = false;
     var result = '';
-    var srcFilename = '';
+    var srcFilename = null;
+    var targetFname = null;
 
     console.dir(args);
 
     if (args.src){
         srcFilename = path.join(dirname, args.src);
+    }
+
+    if(args.target){
+        targetFname = path.join(dirname, args.target)
     }
 
     if (args.password) {
@@ -184,10 +187,6 @@ function processParse() {
         show = args.show;
     }
 
-    if (args.filename) {
-        filename = path.join(dirname, args.filename);
-    }
-
     if (args.content) {
         content = args.content
     }
@@ -197,8 +196,11 @@ function processParse() {
         switch (action) {
             case 'e':
                 // encrypt
-                if (filename) {
-                    result = MyCrypt.encryptToFile(filename, content, password, salt);
+                if ((targetFname) && (srcFilename === null)) {
+                    result = MyCrypt.encryptToFile(targetFname, content, password, salt);
+                }
+                else if ((targetFname) && (srcFilename)){
+                    result = MyCrypt.encryptFromFileToFile(password, salt, srcFilename, targetFname);
                 }
                 else {
                     result = MyCrypt.encrypt(content, password, salt)
@@ -213,8 +215,11 @@ function processParse() {
             case 'd':
                 // decrypt
 
-                if (filename) {
-                    result = MyCrypt.decryptFromFile(filename, password, salt, toJson);
+                if((targetFname) && (srcFilename === null)) {
+                    result = MyCrypt.decryptFromFile(targetFname, password, salt, toJson);
+                }
+                else if ((targetFname) && (srcFilename)){
+                    result = MyCrypt.decryptFromFileToFile(password, salt, srcFilename, targetFname, toJson);
                 }
                 else {
                     result = MyCrypt.decrypt(content, password, salt, toJson);

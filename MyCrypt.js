@@ -78,6 +78,19 @@ class MyCrypt {
 
     }
 
+    encryptFromFileToFile(srcFname, targetFname){
+
+        try{
+
+            const text = fs.readFileSync(srcFname, 'utf8');
+            const encrypted = this.encryptToFile(targetFname, text);
+            return encrypted;
+        }
+        catch(err){
+            throw new Error(err.message)
+        }
+    }
+
     decryptFromFile(filename, toJson = false) {
 
         try {
@@ -87,6 +100,25 @@ class MyCrypt {
 
         } catch (err) {
             throw new Error(err.message);
+        }
+    }
+
+    decryptFromFileToFile(srcFname, targetFname, toJson=false ){
+
+        try{
+            const decrypted = this.decryptFromFile(srcFname);
+            fs.writeFileSync(targetFname, decrypted);
+
+            if(toJson){
+                return JSON.parse(decrypted)
+            }
+            else{               
+                return decrypted;
+            }
+           
+        }
+        catch(err){
+            throw new Error(err.message)
         }
     }
 
@@ -119,6 +151,18 @@ class MyCrypt {
     
     }
 
+    static decryptFromFileToFile(password='', salt='', srcFname, targetFname, toJson=false ){
+
+        try{
+            const crypter = new MyCrypt(password, salt);
+            const decrypted = crypter.decryptFromFileToFile(srcFname, targetFname, toJson);
+            return decrypted;
+        }
+        catch(err){
+            throw new Error(err.message)
+        }
+    }
+
     static encryptToFile(fname, content = '', password = '', salt = '') {
     
         try {
@@ -130,6 +174,18 @@ class MyCrypt {
             throw new Error('Error by encrypt');
         }
        
+    }
+
+    static encryptFromFileToFile(password='', salt='', srcFname, targetFname){
+
+        try{
+            const crypter = new MyCrypt(password, salt);
+            const encrypted = crypter.encryptFromFileToFile(srcFname, targetFname);
+            return encrypted;
+        }
+        catch(err){
+            throw new Error(err.message)
+        }
     }
 
     static encrypt(content = '', password = '', salt = '') {
