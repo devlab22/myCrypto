@@ -1,5 +1,4 @@
 const MyCrypt = require('./MyCrypt');
-const readlineSync = require('readline-sync');
 const { ArgumentParser } = require('argparse');
 
 const dirname = process.cwd();

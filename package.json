@@ -13,8 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "argparse": "^2.0.1",
-    "pkg": "^5.8.0",
-    "readline-sync": "^1.4.10"
+    "pkg": "^5.8.0"
   },
   "pkg": {
     "scripts": "MyCrypt.js"
