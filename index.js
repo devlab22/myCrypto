@@ -91,8 +91,8 @@ function processParse() {
             case 'decrypt':
                 // decrypt
 
-                if((targetFname) && (srcFilename === null)) {
-                    result = MyCrypt.decryptFromFile(targetFname, password, salt, toJson);
+                if((targetFname === null) && (srcFilename)) {
+                    result = MyCrypt.decryptFromFile(srcFilename, password, salt, toJson);
                 }
                 else if ((targetFname) && (srcFilename)){
                     result = MyCrypt.decryptFromFileToFile(password, salt, srcFilename, targetFname, toJson);
