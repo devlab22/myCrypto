@@ -17,7 +17,6 @@ parser.add_argument('-show', '--show', { help: 'show encrypted', action: 'store_
 parser.add_argument('-src', '--src', { help: 'source filename' });
 parser.add_argument('-target', '--target', { help: 'target filename' });
 parser.add_argument('-content', '--content', { help: 'content' });
-parser.add_argument('-print', '--print', { help: 'help', action: 'store_true' });
 
 
 const args = parser.parse_args();
@@ -35,13 +34,6 @@ function processParse() {
     var targetFname = null;
 
     console.dir(args);
-
-    
-    if(args.print){
-        parser.print_help();
-        parser.print_usage();
-        return;
-    }
 
     if (args.src){
         srcFilename = path.join(dirname, args.src);
