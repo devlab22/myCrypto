@@ -26,12 +26,16 @@ class MyCrypt {
         });
 
         cipher.on('error', () => {
-            throw new Error('error')
+            encrypted = null;
         })
 
         // Writing data
         cipher.write(message);
         cipher.end();
+
+        if(encrypted === null){
+            throw new Error('error by encrypt')
+        }
         return encrypted;
     }
 
@@ -49,11 +53,15 @@ class MyCrypt {
         })
 
         decipher.on('error', () => {
-            throw new Error('wrong password')
+            decrypted = null;
         })
 
         decipher.write(data, 'base64');
         decipher.end();
+
+        if(decrypted === null){
+            throw new Error('wrong password')
+        }
 
         if(toJson){
             const decryptedJson = JSON.parse(decrypted);
@@ -132,7 +140,7 @@ class MyCrypt {
             return decryptedText;
         }
         catch (err) {
-            throw new Error('Error by decrypt');
+            throw new Error(err.message);
         }
     }
 
@@ -146,7 +154,7 @@ class MyCrypt {
     
         }
         catch (err) {
-            throw new Error('Error by decrypt');
+            throw new Error(err.message);
         }
     
     }
@@ -171,7 +179,7 @@ class MyCrypt {
             return encrypted;
         }
         catch (err) {
-            throw new Error('Error by encrypt');
+            throw new Error(err.message);
         }
        
     }
@@ -196,7 +204,7 @@ class MyCrypt {
             return encrypted;
         }
         catch (err) {
-            throw new Error('Error by encrypt');
+            throw new Error(err.message);
         }
     
     }
