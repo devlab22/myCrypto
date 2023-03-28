@@ -1,2 +1,0 @@
-mycrypto-win.exe 
-pause
