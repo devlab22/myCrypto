@@ -32,7 +32,10 @@ function processParse() {
     var srcFilename = null;
     var targetFname = null;
 
+    console.log('input data:');
     console.dir(args);
+    console.log('version v1.0, build: 20230328');
+    console.log('output data:')
 
     if (args.src){
         srcFilename = path.join(dirname, args.src);
