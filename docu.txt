@@ -1,0 +1,7 @@
+encrypt: file batch
+mycrypto-win.exe --password ***** --action encrypt --toJson --show --src source.json --target target.ini
+pause
+
+decrypt: file batch
+mycrypto-win.exe --password ***** --action decrypt --toJson --show --src source.ini --target target.json
+pause
