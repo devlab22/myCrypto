@@ -5,3 +5,4 @@
 *.exe
 *.json
 *.bat
+.DS_Store
